@@ -29,10 +29,9 @@ import {HomeComponent} from './home/home.component';
         BrowserModule.withServerTransition({appId: 'firebrew'}),
         // Application routing
         RouterModule.forRoot([
-            {path: 'home', loadChildren: 'app/home/home.module#HomeModule'},
             {path: 'bar', loadChildren: 'app/bar/bar.module#BarModule'},
             {path: 'patron/:patronId', loadChildren: 'app/patron/patron.module#PatronModule'},
-            {path: '', redirectTo: '/home', pathMatch: 'full'}
+            {path: '', loadChildren: 'app/home/home.module#HomeModule'}
         ]),
         HttpClientModule,
         FormsModule,
@@ -54,6 +53,7 @@ import {HomeComponent} from './home/home.component';
         BarModule,
         PatronModule
     ],
+    exports: [RouterModule],
     providers: [],
     bootstrap: [AppComponent]
 })
