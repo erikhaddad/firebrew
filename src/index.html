@@ -7,8 +7,21 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Product+Sans:300,400,500,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet">
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <style type="text/css">
+      #loading{height:100vh;background-color:#F7BD01;font-weight:900;position:relative}#loading>div{font-size:6em;color:transparent;text-align:center;position:absolute;top:50%;width:100%;-webkit-transform:translate(0,-50%);-moz-transform:translate(0,-50%);-ms-transform:translate(0,-50%);-o-transform:translate(0,-50%);-webkit-background-clip:text;background-clip:text;background-image:url(//caraujo_pens.surge.sh/images/nnk2Gsg.png);background-position:0 0;-webkit-animation:serveja 1s linear infinite;-moz-animation:serveja 1s linear infinite;animation:serveja 1s linear infinite;-ms-animation:serveja 1s linear infinite}@-moz-keyframes serveja{to{background-position:1051px 0}}@-webkit-keyframes serveja{to{background-position:1051px 0}}@keyframes serveja{to{background-position:1051px 0}}
+    </style>
+    <div id="loading">
+      <div class="written" contenteditable>
+        loading
+      </div>
+    </div>
+  </app-root>
 </body>
 </html>
