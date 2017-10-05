@@ -2,8 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PatronComponent} from './patron.component';
 import {RouterModule} from '@angular/router';
+import {DataService} from '../common/data.service';
 
 @NgModule({
+    declarations: [PatronComponent],
     imports: [
         CommonModule,
         RouterModule.forChild([
@@ -11,7 +13,11 @@ import {RouterModule} from '@angular/router';
             {path: '', redirectTo: '/home', pathMatch: 'full'}
         ])
     ],
-    declarations: [PatronComponent]
+    providers: [
+        DataService
+    ]
 })
 export class PatronModule {
 }
+
+export {DataService};

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home.component';
 import {RouterModule} from '@angular/router';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {MaterialModule} from '../material/material.module';
 
 @NgModule({
     imports: [
@@ -11,7 +12,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
             {path: 'home', component: HomeComponent},
             {path: '', pathMatch: 'full', component: HomeComponent}
         ]),
-        FlexLayoutModule
+        FlexLayoutModule,
+        MaterialModule
     ],
     declarations: [HomeComponent]
 })

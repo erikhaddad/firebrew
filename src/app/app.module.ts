@@ -19,7 +19,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {MaterialModule} from './material/material.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HomeModule} from './home/home.module';
-import {HomeComponent} from './home/home.component';
+import {LayoutService} from './common/layout.service';
 
 @NgModule({
     declarations: [
@@ -54,7 +54,7 @@ import {HomeComponent} from './home/home.component';
         PatronModule
     ],
     exports: [RouterModule],
-    providers: [],
+    providers: [LayoutService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

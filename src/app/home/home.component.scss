@@ -1,4 +1,21 @@
 #home-component {
   height: 100vh;
   background-color: rgba(247, 189, 1, .4);
+
+  .home-content {
+
+  }
+
+  .home-beer-guy {
+
+  }
+
+  .home-buttons {
+    padding: 12px 64px;
+
+    button {
+      width: 148px;
+      margin: 12px;
+    }
+  }
 }

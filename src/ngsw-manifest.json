@@ -1,5 +1,6 @@
 {
   "routing": {
+    "index": "index.html",
     "routes": {
       "/": {
         "match": true

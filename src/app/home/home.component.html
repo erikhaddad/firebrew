@@ -1,3 +1,10 @@
 <div id="home-component" fxLayout="column" fxLayoutAlign="center center">
-  <img src="/assets/images/beer_guy.png" />
+  <div class="home-content" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="center center">
+    <img class="home-beer-guy" src="/assets/images/beer_guy.png" />
+
+    <div class="home-buttons" fxLayout="row" fxLayout.gt-md="column" fxLayoutAlign="center center">
+      <button md-raised-button color="primary" [routerLink]="'sign-in'" aria-label="Sign in and pour some beer">Beer me!</button>
+      <button md-raised-button color="accent" [routerLink]="'bar'" aria-label="Watch the progress at the bar">Sit at the bar</button>
+    </div>
+  </div>
 </div>
