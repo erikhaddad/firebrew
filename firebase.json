@@ -6,8 +6,24 @@
     "public": "dist",
     "ignore": [
       "firebase.json",
+      "database.rules.json",
+      "firestore.indexes.json",
+      "firestore.rules",
+      "storage.rules",
+      "functions",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=0"
+          }
+        ]
+      }
     ],
     "rewrites": [
       {
@@ -15,5 +31,9 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
