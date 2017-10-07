@@ -39,4 +39,9 @@
     <div id="beer-tap-bottom"></div>
     <div id="beer-pouring-liquid" [ngClass]="{'pouring': isPouring}"></div>
   </div>
+
+  <div class="user-section" fxLayout="row" fxLayoutAlign="center center">
+    <img class="user-avatar" [src]="user.avatar" alt="Logged in user avatar" />
+    <h1 class="user-name">{{ user.name }}</h1>
+  </div>
 </div>

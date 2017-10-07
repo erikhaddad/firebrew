@@ -1,16 +1,26 @@
 export interface IOrder {
     $key?: string;
 
+    patronId: string;
     name: string;
     cost: number;
     createdAt: string;
+
+    progress: number;
 }
 export class Order implements IOrder {
+    patronId: string;
     name: string;
     cost: number;
     createdAt: string;
+
+    progress: number;
 }
 
+export interface ITap {
+    isPouring: boolean;
+    fillPercentage: number;
+}
 
 export interface IUser {
     $key?: string; // user-id
