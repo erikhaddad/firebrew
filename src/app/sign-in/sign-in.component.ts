@@ -32,6 +32,6 @@ export class SignInComponent {
     }
 
     private postSignIn(): void {
-        this.router.navigate(['/messages']);
+        this.router.navigate(['/bar']);
     }
 }

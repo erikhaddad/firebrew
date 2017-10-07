@@ -18,9 +18,6 @@ export class PatronComponent implements OnInit {
     user: IUser;
 
     pouringLiquid: HTMLElement;
-    pourButton: HTMLElement;
-    beerTap: HTMLElement;
-    beerTapShadow: HTMLElement;
     isPouring: boolean;
     isLoaded: boolean;
 
@@ -31,9 +28,9 @@ export class PatronComponent implements OnInit {
         this.isLoaded = false;
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.paramSubscription = this.route.params.subscribe(params => {
-            this.userId = params['userId'];
+            this.userId = params['patronId'];
 
             this.user$ = this.dataService.getUser(this.userId);
             this.user$.valueChanges().subscribe(user => {
@@ -42,20 +39,17 @@ export class PatronComponent implements OnInit {
         });
 
         this.pouringLiquid = document.getElementById('beer-pouring-liquid');
-        this.pourButton = document.getElementById('pour-button');
-        this.beerTap = document.getElementById('beer-tap-top');
-        this.beerTapShadow = document.getElementById('beer-tap-top-shadow');
         this.isPouring = false;
         this.isLoaded = true;
 
         this.render();
-        // this.init();
     }
 
-    liquidAnimation(el, speed) {
+    private liquidAnimation (el, speed) {
         const liquidBackgroundPositionArr = getComputedStyle(el)
             .getPropertyValue('background-position')
             .split(' ');
+
         const liquidBackgroudPosition = parseFloat(liquidBackgroundPositionArr[1]);
         if (liquidBackgroudPosition > 0) {
             el.style.backgroundPosition = '50% ' + ((liquidBackgroudPosition - speed) + '%');
@@ -66,14 +60,14 @@ export class PatronComponent implements OnInit {
         }
     }
 
-    render() {
+    render () {
         if (this.isPouring) {
             this.liquidAnimation(this.pouringLiquid, 0.5);
         }
-        requestAnimationFrame(this.render);
+        requestAnimationFrame(this.render.bind(this));
     }
 
-    toggleIsPouring() {
+    toggleIsPouring () {
         this.isPouring = !this.isPouring;
     }
 }

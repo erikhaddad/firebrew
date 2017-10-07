@@ -1,0 +1,27 @@
+{
+  "dir": "ltr",
+  "lang": "en-US",
+  "name": "Firebrew",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "/",
+  "short_name": "Firebrew",
+  "icons": [
+    {
+      "src": "/assets/favicons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicons/android-chrome-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#FFCA28",
+  "description": "Pour one out with Firebase",
+  "orientation": "any",
+  "background_color": "#512721",
+  "related_applications": [],
+  "prefer_related_applications": false
+}

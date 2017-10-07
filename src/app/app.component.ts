@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {MdIconRegistry} from '@angular/material';
+import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
                 public layoutService: LayoutService,
                 private router: Router,
                 private route: ActivatedRoute,
-                iconRegistry: MdIconRegistry,
+                iconRegistry: MatIconRegistry,
                 sanitizer: DomSanitizer) {
 
         this.currentPage = 'home';

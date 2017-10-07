@@ -20,6 +20,7 @@ import {MaterialModule} from './material/material.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HomeModule} from './home/home.module';
 import {LayoutService} from './common/layout.service';
+import {HttpModule} from '@angular/http'; // deprecated but necessary for MatIconRegistry :(
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import {LayoutService} from './common/layout.service';
             {path: 'patron/:patronId', loadChildren: 'app/patron/patron.module#PatronModule'},
             {path: '', loadChildren: 'app/home/home.module#HomeModule'}
         ]),
+        HttpModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,

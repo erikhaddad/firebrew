@@ -14,8 +14,8 @@ exports.createUserRecord = functions.auth.user().onCreate(event => {
         'name': user.displayName,
         'email': user.email,
         'avatar': user.photoURL,
-        'created': ''+user.metadata.createdAt
+        'created': user.metadata.creationTime
     };
 
-    return admin.firestore().document(`/users/${user.uid}`).update(newUser);
+    return admin.firestore().collection('users').doc(user.uid).set(newUser);
 });
