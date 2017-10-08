@@ -4431,22 +4431,23 @@
             </g>
           </g>
         </g>
-  </svg>
-
+    </svg>
   </div>
   <div id="bar-container">
     <div id="beer-tap-container">
-      <div id="beer-tap-top" [ngClass]="{'clicked': isPouring}"></div>
+      <div id="beer-tap-top" [ngClass]="{'clicked': isPouring}" (click)="toggleIsPouring()"></div>
       <div id="beer-tap-top-shadow" [ngClass]="{'clicked': isPouring}"></div>
       <div id="beer-tap-bottom"></div>
-      <div id="beer-pouring-from-tap" class="beer-pouring" style="opacity: 1; height: 229px;" [ngClass]="{'pouring': isPouring}"></div>
-      <div id="beer-mug">
-        <div id="beer-mug-wrapper">
-          <div id="beer-pouring-from-mug" class="beer-pouring"></div>
-          <div id="beer-mug-back"></div>
-          <div id="beer-mug-liquid"></div>
-          <canvas id="mug-canvas" width="97" height="194"></canvas>
-          <div id="beer-mug-front"></div>
+      <div id="beer-pouring-from-tap" class="beer-pouring" [ngClass]="{'pouring': isPouring}"></div>
+
+      <div class="beer-mug" [ngClass]="{'in-action': isPouring}">
+        <div class="beer-mug-wrapper">
+          <div class="beer-pouring-from-mug beer-pouring"></div>
+          <div class="beer-mug-back"></div>
+          <div class="beer-bubbles-container"></div>
+          <div class="beer-mug-liquid" [ngClass]="{'fill': isPouring}"></div>
+          <canvas class="mug-canvas" width="97" height="194"></canvas>
+          <div class="beer-mug-front"></div>
         </div>
       </div>
     </div>

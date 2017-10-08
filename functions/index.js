@@ -1,7 +1,9 @@
 'use strict';
 
-const authRecord = require('./auth-record');
+const orders = require('./orders');
+const patrons = require('./patrons');
 
 module.exports = {
-    createUserRecord: authRecord.createUserRecord
+    orderUpdate: orders.orderChange,
+    patronCreate: patrons.patronCreate
 };

@@ -3,7 +3,7 @@ import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
-import {IUser} from './common/data-model';
+import {IPatron} from './common/data-model';
 import {AuthService} from './auth/auth.service';
 import {DataService} from './common/data.service';
 import {LayoutService} from './common/layout.service';
@@ -18,8 +18,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-    authUser$: AngularFirestoreDocument<IUser>;
-    authUser: IUser|null;
+    authPatron$: AngularFirestoreDocument<IPatron>;
+    authPatron: IPatron|null;
 
     currentPage: string;
     isMobile: boolean;
@@ -35,12 +35,12 @@ export class AppComponent implements OnInit {
         this.currentPage = 'home';
 
         /** AUTH **/
-        this.authUser = null;
-        authService.authState$.subscribe(authUser => {
-            if (authUser != null) {
-                this.authUser$ = dataService.getUser(authUser.uid);
-                this.authUser$.valueChanges().subscribe(user => {
-                    this.authUser = user;
+        this.authPatron = null;
+        authService.authState$.subscribe(authPatron => {
+            if (authPatron != null) {
+                this.authPatron$ = dataService.getPatron(authPatron.uid);
+                this.authPatron$.valueChanges().subscribe(patron => {
+                    this.authPatron = patron;
                 });
             }
         });

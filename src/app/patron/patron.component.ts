@@ -3,7 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {DataService} from '../common/data.service';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
-import {IOrder, IUser} from '../common/data-model';
+import {IOrder, IPatron, Order, OrderStatus} from '../common/data-model';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'app-patron',
@@ -13,10 +14,11 @@ import {IOrder, IUser} from '../common/data-model';
 export class PatronComponent implements OnInit {
 
     paramSubscription: any;
-    userId: string;
-    user$: AngularFirestoreDocument<IUser>;
-    user: IUser;
+    patronId: string;
+    patron$: AngularFirestoreDocument<IPatron>;
+    patron: IPatron;
 
+    beerCost = 6;
     pouringLiquid: HTMLElement;
     isPouring: boolean;
     isLoaded: boolean;
@@ -40,11 +42,11 @@ export class PatronComponent implements OnInit {
 
     ngOnInit () {
         this.paramSubscription = this.route.params.subscribe(params => {
-            this.userId = params['patronId'];
+            this.patronId = params['patronId'];
 
-            this.user$ = this.dataService.getUser(this.userId);
-            this.user$.valueChanges().subscribe(user => {
-                this.user = user;
+            this.patron$ = this.dataService.getPatron(this.patronId);
+            this.patron$.valueChanges().subscribe(patron => {
+                this.patron = patron;
             });
         });
 
@@ -81,7 +83,6 @@ export class PatronComponent implements OnInit {
         this.isPouring = !this.isPouring;
     }
 
-    /**/
     getMobileOS () {
         const e = navigator.userAgent || navigator.vendor || window['opera'];
 
@@ -124,5 +125,19 @@ export class PatronComponent implements OnInit {
             arGamma: gamma
         };
     }
-    /**/
+
+    createOrder () {
+        const order = new Order();
+
+        order.patronId = this.patron.id;
+        order.name = this.patron.name;
+        order.avatar = this.patron.avatar;
+        order.createdAt = firebase.database.ServerValue.TIMESTAMP;
+
+        order.cost = this.beerCost;
+        order.status = OrderStatus.PENDING;
+        order.progress = 0;
+
+        this.dataService.createOrder(order);
+    }
 }

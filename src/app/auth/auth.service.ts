@@ -19,26 +19,26 @@ export enum AuthProviders {
 
 @Injectable()
 export class AuthService {
-    public user: firebase.User;
+    public patron: firebase.User;
     public authState$: Observable<firebase.User>;
 
     constructor(@Inject(AngularFireAuth) private afAuth: AngularFireAuth) {
-        this.user = null;
+        this.patron = null;
         this.authState$ = afAuth.authState;
 
-        this.authState$.subscribe((user: firebase.User) => {
-            this.user = user;
+        this.authState$.subscribe((patron: firebase.User) => {
+            this.patron = patron;
 
-            // console.log('authState$ changed', this.user);
+            // console.log('authState$ changed', this.patron);
         });
     }
 
     get authenticated(): boolean {
-        return this.user !== null;
+        return this.patron !== null;
     }
 
     get id(): string {
-        return this.authenticated ? this.user.uid : null;
+        return this.authenticated ? this.patron.uid : null;
     }
 
     signIn(providerId: number): Promise<any> {
@@ -62,8 +62,8 @@ export class AuthService {
         return firebase.auth()
             .signInWithPopup(provider)
             .then((result: firebase.auth.UserCredential) => {
-                // The signed-in user info.
-                this.user = result.user;
+                // The signed-in patron info.
+                this.patron = result.user;
             }).catch((error: FirebaseError) => {
                 // Handle Errors here.
                 const errorCode = error.code;

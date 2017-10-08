@@ -1,53 +1,50 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../auth/auth.service';
-import {IUser, User, Order, IOrder} from './data-model';
-
+import {IPatron, Patron, Order, IOrder, OrderStatus} from './data-model';
 
 @Injectable()
 export class DataService {
-    private queuePath: string;
-    private userOrdersPath: string;
-    private usersPath: string;
+    private ordersPath: string;
+    private patronsPath: string;
 
     constructor(private afs: AngularFirestore, private auth: AuthService) {
-        this.queuePath = '/queue';
-        this.usersPath = '/users';
-        this.userOrdersPath = '/user-orders';
-    }
-
-    get users(): AngularFirestoreCollection<IUser[]> {
-        return this.afs.collection(this.usersPath);
-    }
-
-    get userOrders(): AngularFirestoreCollection<IOrder[]> {
-        return this.afs.collection(this.userOrdersPath);
-    }
-
-    get queue(): AngularFirestoreCollection<IOrder[]> {
-        return this.afs.collection(this.queuePath);
-    }
-
-    getUserOrders(id: string): AngularFirestoreDocument<IOrder[]> {
-        return this.afs.doc(`${this.userOrdersPath}/${id}`);
-    }
-
-    /** USERS **/
-    createUser(user: User): Promise<any> {
-        return this.afs.collection(this.usersPath).add(user);
-    }
-    getUser(userId: string): AngularFirestoreDocument<IUser> {
-        return this.afs.doc(`${this.usersPath}/${userId}`);
-    }
-    removeUser(user: IUser): Promise<any> {
-        return this.afs.doc(`${this.usersPath}/${user.$key}`).delete();
-    }
-    updateUser(user: IUser): Promise<any> {
-        return this.afs.doc(`${this.usersPath}/${user.$key}`).update(user);
+        this.ordersPath = '/orders';
+        this.patronsPath = '/patrons';
     }
 
     /** ORDERS **/
-    createUserOrder(userId: string, order: Order): Promise<any> {
-        return this.afs.collection(`${this.userOrdersPath}/${userId}`).add(order);
+    get orders(): AngularFirestoreCollection<IOrder[]> {
+        return this.afs.collection(this.ordersPath);
+    }
+    createOrder(order: Order): Promise<any> {
+        order.status = OrderStatus.ORDERED;
+        return this.afs.collection(`${this.ordersPath}`).add(order);
+    }
+    getOrder(id: string): AngularFirestoreDocument<IOrder> {
+        return this.afs.doc(`${this.ordersPath}/${id}`);
+    }
+    getOrdersByPatron(patronId: string): AngularFirestoreCollection<IOrder[]> {
+        return this.afs.collection('orders', ref => ref.where('patronId', '==', patronId));
+    }
+    getOrdersByStatus(status: number): AngularFirestoreCollection<IOrder[]> {
+        return this.afs.collection('orders', ref => ref.where('status', '==', status));
+    }
+
+    /** PATRONS **/
+    get patrons(): AngularFirestoreCollection<IPatron[]> {
+        return this.afs.collection(this.patronsPath);
+    }
+    createPatron(patron: Patron): Promise<any> {
+        return this.afs.collection(this.patronsPath).add(patron);
+    }
+    getPatron(patronId: string): AngularFirestoreDocument<IPatron> {
+        return this.afs.doc(`${this.patronsPath}/${patronId}`);
+    }
+    removePatron(patron: IPatron): Promise<any> {
+        return this.afs.doc(`${this.patronsPath}/${patron.$key}`).delete();
+    }
+    updatePatron(patron: IPatron): Promise<any> {
+        return this.afs.doc(`${this.patronsPath}/${patron.$key}`).update(patron);
     }
 }

@@ -1,6 +1,6 @@
 import {ApplicationInitStatus, Component, OnInit} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {IOrder, IUser} from '../common/data-model';
+import {IOrder, IPatron} from '../common/data-model';
 import {Observable} from 'rxjs/Observable';
 
 export interface Item {
@@ -36,7 +36,7 @@ export class BarComponent implements OnInit {
 
     ngOnInit() {
         this.pouringLiquid = document.getElementById('beer-pouring-from-tap');
-        this.isPouring = false;
+        this.isPouring = true;
         this.isLoaded = true;
 
         this.render();
@@ -66,18 +66,5 @@ export class BarComponent implements OnInit {
 
     toggleIsPouring () {
         this.isPouring = !this.isPouring;
-    }
-
-    addOrder() {
-        const order = {
-            patronId: '123',
-            name: 'Erik Haddad',
-            cost: 6,
-            createdAt: '2017-10-11T00:00:00Z',
-            progress: 0
-        };
-
-        // must adhere to type Order
-        this.orderCollection.add(order);
     }
 }

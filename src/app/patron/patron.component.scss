@@ -172,8 +172,8 @@
   z-index: 1;
 }
 
-.user-section {
-  .user-avatar {
+.patron-section {
+  .patron-avatar {
     height: 48px;
     width: 48px;
     border-radius: 50%;
@@ -181,7 +181,7 @@
     margin-right: 12px;
     box-sizing: border-box;
   }
-  .user-name {
+  .patron-name {
     color: rgba(255, 255, 255, .8);
     font-size: 48px;
   }
