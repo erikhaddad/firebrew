@@ -503,20 +503,16 @@ body.loaded {
   position: absolute;
   z-index: 10;
   top: 374px;
-  left: 190px;
-  -webkit-transform-origin: top left;
-  -moz-transform-origin: top left;
-  -o-transform-origin: top left;
-  -ms-transform-origin: top left;
+  left: 1000px;
   transform-origin: top left;
-  -webkit-transition: left .4s ease 0s, top .3s ease .4s;
-  -moz-transition: left .4s ease 0s, top .3s ease .4s;
-  -o-transition: left .4s ease 0s, top .3s ease .4s;
   transition: left 0.4s ease 0s, top 0.3s ease 0.4s;
 
   &.in-action {
     top: 337px;
-    left: 52px;
+  }
+
+  &.completed {
+    left: -1000px;
   }
 }
 
@@ -670,6 +666,36 @@ body.loaded {
 #bar-component {
   background: #512721;
   height: 100vh;
+}
+
+
+#serving-patron {
+  position: absolute;
+  width: 474px;
+  height: 409px;
+  right: calc(50vh + 64px);
+  top: calc(50vh - 212px);
+
+  .now-serving {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .patron-avatar {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, .54);
+    margin: 48px 0;
+    box-sizing: border-box;
+  }
+  .patron-name {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
 }
 
 $example-photo: 'https://lh6.googleusercontent.com/-3vhVlg7Ydss/AAAAAAAAAAI/AAAAAAACKxI/aLJiPA6cBso/photo.jpg';

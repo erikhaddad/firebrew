@@ -19,7 +19,7 @@ export interface IBarState {
 }
 
 export interface IOrder {
-    $key?: string;
+    id: string;
 
     patronId: string;
     name: string;
@@ -31,6 +31,8 @@ export interface IOrder {
     progress: number;
 }
 export class Order implements IOrder {
+    id: string;
+
     patronId: string;
     name: string;
     avatar: string;
@@ -42,7 +44,6 @@ export class Order implements IOrder {
 }
 
 export interface IPatron {
-    $key?: string; // patron-id
     id: string; // The id of the patron.
     name: string; // The display name of the patron.
     email: string; // Email address of the patron.
