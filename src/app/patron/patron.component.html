@@ -33,14 +33,14 @@
     </div>
   </div>
 
-  <div id="beer-tap-container">
+  <div id="beer-tap-container" *ngIf="false">
     <div id="beer-tap-top" [ngClass]="{'clicked': isPouring}"></div>
     <div id="beer-tap-top-shadow" [ngClass]="{'clicked': isPouring}"></div>
     <div id="beer-tap-bottom"></div>
     <div id="beer-pouring-liquid" [ngClass]="{'pouring': isPouring}"></div>
   </div>
 
-  <div class="patron-section" fxLayout="row" fxLayoutAlign="center center">
+  <div class="patron-section" fxLayout="row" fxLayoutAlign="center center" *ngIf="patron">
     <img class="patron-avatar" [src]="patron.avatar" alt="Logged in patron avatar" />
     <h1 class="patron-name">{{ patron.name }}</h1>
   </div>

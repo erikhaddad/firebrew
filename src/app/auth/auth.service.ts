@@ -29,7 +29,7 @@ export class AuthService {
         this.authState$.subscribe((patron: firebase.User) => {
             this.patron = patron;
 
-            // console.log('authState$ changed', this.patron);
+            console.log('authState$ changed', this.patron);
         });
     }
 

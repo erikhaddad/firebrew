@@ -4440,7 +4440,9 @@
       <div id="beer-tap-bottom"></div>
       <div id="beer-pouring-from-tap" class="beer-pouring" [ngClass]="{'pouring': isPouring}"></div>
 
-      <div class="beer-mug" [ngClass]="{'in-action': isPouring}">
+      <div class="beer-mug"
+           [ngClass]="{'in-action': isPouring}"
+           *ngFor="let order of orders | async; let idx = index">
         <div class="beer-mug-wrapper">
           <div class="beer-pouring-from-mug beer-pouring"></div>
           <div class="beer-mug-back"></div>

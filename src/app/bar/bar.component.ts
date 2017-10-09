@@ -2,6 +2,7 @@ import {ApplicationInitStatus, Component, OnInit} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {IOrder, IPatron} from '../common/data-model';
 import {Observable} from 'rxjs/Observable';
+import {DataService} from '../common/data.service';
 
 export interface Item {
     name: string;
@@ -15,7 +16,7 @@ export interface Item {
 })
 export class BarComponent implements OnInit {
 
-    orderCollection: AngularFirestoreCollection<IOrder>;
+    ordersCollection: AngularFirestoreCollection<IOrder>;
     orders: Observable<IOrder[]>;
 
     pouringLiquid: HTMLElement;
@@ -24,14 +25,14 @@ export class BarComponent implements OnInit {
     pouringHeight: number;
     mugLiquidHeight: number;
 
-    constructor(private afs: AngularFirestore) {
+    constructor(public dataService: DataService) {
         this.isLoaded = false;
         this.isPouring = false;
         this.pouringHeight = 0;
         this.mugLiquidHeight = 0;
 
-        this.orderCollection = this.afs.collection<IOrder>('orders');
-        this.orders = this.orderCollection.valueChanges(); // unwrapped snapshots
+        this.ordersCollection = dataService.orders;
+        this.orders = this.ordersCollection.valueChanges();
     }
 
     ngOnInit() {

@@ -2,7 +2,6 @@
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
 
 exports.patronCreate = functions.auth.user().onCreate(event => {
     const patron = event.data; // The Firebase user.

@@ -14,7 +14,7 @@ export class DataService {
     }
 
     /** ORDERS **/
-    get orders(): AngularFirestoreCollection<IOrder[]> {
+    get orders(): AngularFirestoreCollection<IOrder> {
         return this.afs.collection(this.ordersPath);
     }
     createOrder(order: Order): Promise<any> {
@@ -32,7 +32,7 @@ export class DataService {
     }
 
     /** PATRONS **/
-    get patrons(): AngularFirestoreCollection<IPatron[]> {
+    get patrons(): AngularFirestoreCollection<IPatron> {
         return this.afs.collection(this.patronsPath);
     }
     createPatron(patron: Patron): Promise<any> {

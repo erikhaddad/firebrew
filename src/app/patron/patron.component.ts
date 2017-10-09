@@ -83,13 +83,13 @@ export class PatronComponent implements OnInit {
         this.isPouring = !this.isPouring;
     }
 
-    getMobileOS () {
+    private getMobileOS () {
         const e = navigator.userAgent || navigator.vendor || window['opera'];
 
         return e.match(/iPad/i) || e.match(/iPhone/i) || e.match(/iPod/i) ? 'iOS' : e.match(/Android/i) ? 'Android' : 'unknown';
     }
 
-    iOSversion () {
+    private iOSversion () {
         const v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
         return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
     }

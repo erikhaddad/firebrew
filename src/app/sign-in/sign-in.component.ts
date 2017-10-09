@@ -32,6 +32,6 @@ export class SignInComponent {
     }
 
     private postSignIn(): void {
-        this.router.navigate(['/bar']);
+        this.router.navigate(['/patron', this.auth.id]);
     }
 }
