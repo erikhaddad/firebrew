@@ -46,11 +46,6 @@ export class AppComponent implements OnInit {
         });
 
         /** LAYOUT **/
-        this.currentPage = layoutService.sectionId;
-        this.layoutService.sectionIdAnnounced$.subscribe(
-            sectionId => {
-                this.currentPage = sectionId;
-            });
         this.isMobile = layoutService.mobileWidthState;
         this.layoutService.widthMobileAnnounced$.subscribe(
             isMobile => {

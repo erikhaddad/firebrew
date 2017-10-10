@@ -9,8 +9,9 @@
     </picture>
 
     <div class="home-buttons" fxLayout="row" fxLayout.gt-md="column" fxLayoutAlign="center center">
-      <button mat-raised-button color="primary" [routerLink]="'sign-in'" aria-label="Sign in and pour some beer">Beer me!</button>
-      <button mat-raised-button color="accent" [routerLink]="'bar'" aria-label="Watch the progress at the bar">I prefer to watch</button>
+      <a mat-raised-button color="primary" [routerLink]="'patron/'+patron.id" aria-label="Sign in and pour some beer" *ngIf="patron != null">Beer me!</a>
+      <a mat-raised-button color="primary" [routerLink]="'sign-in'" aria-label="Sign in and pour some beer" *ngIf="patron == null">Beer me!</a>
+      <a mat-raised-button color="accent" [routerLink]="'bar'" aria-label="Watch the progress at the bar" *ngIf="!isMobile">I prefer to watch</a>
     </div>
   </div>
 </div>

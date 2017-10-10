@@ -15,7 +15,7 @@
   .home-buttons {
     padding: 12px 64px;
 
-    button {
+    .mat-button, .mat-raised-button {
       width: 172px;
       margin: 12px;
       text-transform: uppercase;
