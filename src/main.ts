@@ -12,7 +12,25 @@ if (environment.production) {
 platformBrowserDynamic()
     .bootstrapModule(AppModule)
     .then(() => {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/worker-basic.min.js');
-        }
+        registerServiceWorker('ngsw-worker');
     });
+
+function registerServiceWorker(swName: string) {
+    // console.log('is it production?', environment.production);
+    if (environment.production) {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register(`/${swName}.js`)
+                .then(reg => {
+                    console.log('[App] Successful service worker registration', reg);
+                })
+                .catch(err =>
+                    console.error('[App] Service worker registration failed', err)
+                );
+        } else {
+            console.error('[App] Service Worker API is not supported in current browser');
+        }
+    } else {
+        console.warn('[App] Skipping service worker registration in development environment');
+    }
+}

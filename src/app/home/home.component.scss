@@ -1,13 +1,15 @@
 #home-component {
   height: 100vh;
-  background-color: rgba(247, 189, 1, .4);
+  background-color: rgba(245, 124, 0, 1);
+  transition: background-color .2s ease;
 
   .home-content {
 
   }
 
   .home-beer-guy {
-
+    height: 512px;
+    width: 512px;
   }
 
   .home-buttons {
@@ -17,6 +19,15 @@
       width: 172px;
       margin: 12px;
       text-transform: uppercase;
+    }
+  }
+}
+
+@media screen and (max-height: 760px) {
+  #home-component {
+    .home-beer-guy {
+      height: 256px;
+      width: 256px;
     }
   }
 }

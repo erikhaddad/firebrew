@@ -38,7 +38,7 @@ import {HttpModule} from '@angular/http'; // deprecated but necessary for MatIco
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        ServiceWorkerModule,
+        // ServiceWorkerModule.register('/ngsw-worker.js'),
         BrowserAnimationsModule,
 
         MaterialModule,
@@ -60,4 +60,5 @@ import {HttpModule} from '@angular/http'; // deprecated but necessary for MatIco
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

@@ -4447,7 +4447,7 @@
 
       <div class="beer-mug"
            *ngFor="let order of orders$ | async; let idx = index"
-           [ngClass]="{'in-action': isPouring && idx == 0}"
+           [ngClass]="{'in-action': isPouring && order.id == currentOrder.id}"
            [style.left.px]="(idx * 180) + 52">
         <div class="beer-mug-wrapper">
           <div class="beer-pouring-from-mug beer-pouring"></div>

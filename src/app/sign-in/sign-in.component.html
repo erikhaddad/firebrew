@@ -1,23 +1,27 @@
 <div class="sign-in-wrapper">
   <div class="sign-in">
     <div fxLayout="column" fxLayoutAlign="center center">
-      <h1>Sign in to start a tab</h1>
+      <div>
+        <h1>Sign in to open tab with the bartender</h1>
 
-      <button class="auth-google" mat-raised-button (click)="signInWithGoogle()">
-        <mat-icon svgIcon="google"></mat-icon> Sign in with Google
-      </button>
+        <button class="auth-google" mat-raised-button (click)="signInWithGoogle()">
+          <mat-icon svgIcon="google"></mat-icon> Sign in with Google
+        </button>
 
-      <button class="auth-facebook" mat-raised-button (click)="signInWithFacebook()">
-        <mat-icon svgIcon="facebook"></mat-icon> Sign in with Facebook
-      </button>
+        <button class="auth-facebook" mat-raised-button (click)="signInWithFacebook()">
+          <mat-icon svgIcon="facebook"></mat-icon> Sign in with Facebook
+        </button>
 
-      <button class="auth-twitter" mat-raised-button (click)="signInWithTwitter()">
-        <mat-icon svgIcon="twitter"></mat-icon> Sign in with Twitter
-      </button>
+        <button class="auth-twitter" mat-raised-button (click)="signInWithTwitter()">
+          <mat-icon svgIcon="twitter"></mat-icon> Sign in with Twitter
+        </button>
 
-      <button class="auth-github" mat-raised-button (click)="signInWithGithub()">
-        <mat-icon svgIcon="github"></mat-icon> Sign in with GitHub
-      </button>
+        <button class="auth-github" mat-raised-button (click)="signInWithGithub()">
+          <mat-icon svgIcon="github"></mat-icon> Sign in with GitHub
+        </button>
+
+        <h2>Disclaimer:<br />No actual payments will occur</h2>
+      </div>
     </div>
   </div>
 </div>
