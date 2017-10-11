@@ -35,6 +35,8 @@ export class BarComponent implements OnInit {
     useSound: boolean;
     pouringHeight: number;
     mugLiquidHeight: number;
+    mugWidth: number;
+    mugSpacing: number;
 
     constructor(public dataService: DataService) {
         this.isLoaded = false;
@@ -42,6 +44,8 @@ export class BarComponent implements OnInit {
 
         this.pouringHeight = 0;
         this.mugLiquidHeight = 0;
+        this.mugWidth = 180;
+        this.mugSpacing = 52;
 
         this.completedOrderIds = [];
         this.currentOrder = null;
@@ -52,6 +56,9 @@ export class BarComponent implements OnInit {
 
         this.orders$
             .subscribe((orders: IOrder[]) => {
+                this.queuedOrderIds = [];
+                this.completedOrderIds = [];
+
                 orders.map((order: IOrder, index: number) => {
                     if (order.status === OrderStatus.ORDERED) {
                         this.queuedOrderIds.push(order.id);
@@ -130,10 +137,21 @@ export class BarComponent implements OnInit {
     }
 
     getMugLeftAlignment(order: IOrder, index: number) {
-        let leftPx = -10000;
-        if (order.status !== OrderStatus.COMPLETED) {
-            leftPx = (index * 180) + 52;
+        let leftPx = 10000;
+
+        if (order.status === OrderStatus.PROCESSING) {
+            leftPx = this.mugSpacing;
+        } else if (order.status === OrderStatus.ORDERED) {
+            // find order id in array of orders and use that index
+            const orderIndex = this.queuedOrderIds.indexOf(order.id);
+
+            leftPx = ((orderIndex + 1) * this.mugWidth) + this.mugSpacing;
+        } else if (order.status === OrderStatus.COMPLETED) {
+            leftPx = -10000;
         }
+
+        // console.log('setting leftPx', leftPx);
+
         return leftPx + 'px';
     }
 }

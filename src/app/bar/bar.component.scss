@@ -751,6 +751,13 @@ $example-photo: 'https://lh6.googleusercontent.com/-3vhVlg7Ydss/AAAAAAAAAAI/AAAA
   background-color: #422522;
   border-top: 4px solid #583121;
 
+  .now-serving {
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-right: 18px;
+  }
   .patron-avatar {
     height: 36px;
     width: 36px;

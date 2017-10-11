@@ -39,6 +39,8 @@ export class PatronComponent implements OnInit {
 
     completedOrderIds: string[];
     queuedOrderIds: string[];
+    queuedPatronIds: string[];
+
     patronCompletedOrderIds: string[];
     patronQueuedOrderIds: string[];
 
@@ -62,6 +64,7 @@ export class PatronComponent implements OnInit {
         this.completedOrderIds = [];
         this.currentOrder = null;
         this.queuedOrderIds = [];
+        this.queuedPatronIds = [];
 
         this.patronCompletedOrderIds = [];
         this.patronCurrentOrder = null;
@@ -72,11 +75,18 @@ export class PatronComponent implements OnInit {
 
         this.orders$
             .subscribe((orders: IOrder[]) => {
+                this.completedOrderIds = [];
+                this.currentOrder = null;
+                this.queuedOrderIds = [];
+
                 orders.map((order: IOrder, index: number) => {
                     if (order.status === OrderStatus.ORDERED) {
                         this.queuedOrderIds.push(order.id);
+                        this.queuedPatronIds.push(order.patronId);
                     } else if (order.status === OrderStatus.COMPLETED) {
                         this.completedOrderIds.push(order.id);
+                    } else if (order.status === OrderStatus.PROCESSING) {
+                        this.currentOrder = order;
                     }
                 });
             });
@@ -105,20 +115,8 @@ export class PatronComponent implements OnInit {
             this.patron$.valueChanges().subscribe(patron => {
                 if (patron) {
                     this.patron = patron;
+                    this.configurePatronOrders(patron.id);
 
-                    this.patronOrdersCollection = this.dataService.getOrdersByPatron(this.patronId);
-                    this.patronOrders$ = this.ordersCollection.valueChanges();
-
-                    this.patronOrders$
-                        .subscribe((orders: IOrder[]) => {
-                            orders.map((order: IOrder, index: number) => {
-                                if (order.status === OrderStatus.ORDERED) {
-                                    this.patronQueuedOrderIds.push(order.id);
-                                } else if (order.status === OrderStatus.COMPLETED) {
-                                    this.patronCompletedOrderIds.push(order.id);
-                                }
-                            });
-                        });
                 } else {
                     this.router.navigate(['/']);
                 }
@@ -126,6 +124,33 @@ export class PatronComponent implements OnInit {
         });
 
         this.isLoaded = true;
+    }
+
+    private configurePatronOrders (patronId: string) {
+        this.patronOrdersCollection = this.dataService.getOrdersByPatron(patronId);
+        this.patronOrders$ = this.ordersCollection.valueChanges();
+
+        this.patronOrders$
+            .subscribe((orders: IOrder[]) => {
+                this.patronCompletedOrderIds = [];
+                this.patronCurrentOrder = null;
+                this.patronQueuedOrderIds = [];
+
+                orders.map((order: IOrder, index: number) => {
+                    if (order.status === OrderStatus.ORDERED) {
+                        this.patronQueuedOrderIds.push(order.id);
+
+                    } else if (order.status === OrderStatus.COMPLETED) {
+                        this.patronCompletedOrderIds.push(order.id);
+
+                    } else if (order.status === OrderStatus.PROCESSING) {
+                        this.patronCurrentOrder = order;
+
+                    }
+                });
+
+                console.log('detected data change', this.patronCompletedOrderIds, this.patronCurrentOrder, this.patronQueuedOrderIds);
+            });
     }
 
     private getMobileOS() {
