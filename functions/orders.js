@@ -72,6 +72,8 @@ exports.orderCreate = functions.firestore
 exports.orderChange = functions.firestore
     .document('orders/{orderId}')
     .onUpdate((event) => {
+        console.log('patron order update event', event);
+
         // Retrieve the current and previous value
         const data = event.data.data();
         const previousData = event.data.previous.data();
@@ -83,6 +85,8 @@ exports.orderChange = functions.firestore
         // This is crucial to prevent infinite loops.
         if (status === previousData.status &&
             progress === previousData.progress) {
+
+            console.log('patron order status samesies');
             return;
         }
 
@@ -94,7 +98,7 @@ exports.orderChange = functions.firestore
         if (status === OrderStatus.COMPLETED &&
             previousData.status === OrderStatus.PROCESSING) {
 
-            let ordered = ordersRef.where('status', '==', OrderStatus.ORDERED)
+            return ordersRef.where('status', '==', OrderStatus.ORDERED)
                 .get()
                 .then(snapshot => {
                     if (snapshot.length > 0) {

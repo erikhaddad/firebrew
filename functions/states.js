@@ -16,9 +16,9 @@ let OrderStatus = {
 };
 
 exports.orderChange = functions.firestore
-    .document('state/order')
+    .document('states/order')
     .onUpdate((event) => {
-        console.log('update event', event);
+        console.log('state order update event', event);
 
         // Retrieve the current and previous value
         const data = event.data.data();

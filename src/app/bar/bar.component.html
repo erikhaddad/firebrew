@@ -4455,13 +4455,13 @@
 
       <div class="beer-mug"
            *ngFor="let order of orders$ | async; let idx = index"
-           [ngClass]="{'processing': order.id == currentOrder?.id}"
-           [style.left.px]="(idx * 180) + 52">
+           [ngClass]="{'processing': order.id == currentOrder?.id, 'completed': order.status === ORDER_STATUS.COMPLETED}"
+           [style.left]="getMugLeftAlignment(order, idx)">
         <div class="beer-mug-wrapper">
           <div class="beer-pouring-from-mug beer-pouring"></div>
           <div class="beer-mug-back"></div>
           <div class="beer-bubbles-container"></div>
-          <div class="beer-mug-liquid" [ngClass]="{'fill': tapState?.isPouring}"></div>
+          <div class="beer-mug-liquid" [ngClass]="{'fill': tapState?.isPouring, 'full': currentOrder?.progress === 100}"></div>
           <canvas class="mug-canvas" width="97" height="194"></canvas>
           <div class="beer-mug-front"></div>
         </div>
@@ -4470,10 +4470,11 @@
     <div id="bar-wood-container">
       <div id="bar-wood-first"></div>
       <div class="patron-section"
-           fxLayout="row" fxLayoutAlign="center center"
-           *ngIf="currentOrder && currentOrder.patronId">
-        <img class="patron-avatar" [src]="currentOrder.avatar" alt="Logged in patron avatar" />
-        <h1 class="patron-name">{{ currentOrder.name }}</h1>
+           fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="currentOrder && currentOrder.patronId" fxLayout="row" fxLayoutAlign="center center">
+          <img class="patron-avatar" [src]="currentOrder.avatar" alt="Logged in patron avatar" />
+          <h1 class="patron-name">{{ currentOrder.name }}</h1>
+        </div>
       </div>
     </div>
   </div>

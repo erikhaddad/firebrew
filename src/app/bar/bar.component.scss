@@ -515,7 +515,7 @@ body.loaded {
   }
 
   &.completed {
-    left: -1000px;
+    left: -10000px;
   }
 }
 
@@ -561,7 +561,7 @@ body.loaded {
   transform: translate3d(0, 0, 0);
   transition: height 5s linear;
 
-  &.fill {
+  &.fill, &.full {
     height: 180px;
   }
 }

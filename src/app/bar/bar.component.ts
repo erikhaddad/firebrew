@@ -13,6 +13,8 @@ export class BarComponent implements OnInit {
     beerAudioBack: HTMLAudioElement;
     beerAudioBegin: HTMLAudioElement;
 
+    ORDER_STATUS = OrderStatus;
+
     ordersCollection: AngularFirestoreCollection<IOrder>;
     orders$: Observable<IOrder[]>;
 
@@ -125,5 +127,13 @@ export class BarComponent implements OnInit {
             this.liquidAnimation(this.pouringLiquid, 0.5);
         }
         requestAnimationFrame(this.render.bind(this));
+    }
+
+    getMugLeftAlignment(order: IOrder, index: number) {
+        let leftPx = -10000;
+        if (order.status !== OrderStatus.COMPLETED) {
+            leftPx = (index * 180) + 52;
+        }
+        return leftPx + 'px';
     }
 }
