@@ -31,7 +31,7 @@ exports.orderCreate = functions.firestore
 
         if (status !== OrderStatus.ORDERED) {
             console.log('order status not ORDERED');
-            return;
+            return false;
         }
 
         // If there are no other orders being processed at time of creation, set the
@@ -59,7 +59,10 @@ exports.orderCreate = functions.firestore
 
                     console.log('setting current order state');
                     // move new order to current order to be processed
-                    return statesRef.doc('order').set(data);
+                    let stateUpdate = statesRef.doc('order').set(data);
+
+                    return Promise.all([orderUpdate, tapUpdate, stateUpdate])
+                                    .then(() => console.log('Updated order, tap, and state. Exiting now!'));
                 } else {
                     console.log('snapshot docs length', snapshot.docs.length);
                 }
@@ -87,7 +90,7 @@ exports.orderChange = functions.firestore
             progress === previousData.progress) {
 
             console.log('patron order status samesies');
-            return;
+            return false;
         }
 
         let db = admin.firestore();
@@ -115,15 +118,20 @@ exports.orderChange = functions.firestore
                         orderForProcessing.progress = 0;
 
                         // move new order to current order to be processed
-                        statesRef.doc('order').set(orderForProcessing);
-                        statesRef.doc('tap').set({isPouring: true});
+                        let stateOrderUpate = statesRef.doc('order').set(orderForProcessing);
+                        let stateTapUpdate = statesRef.doc('tap').set({isPouring: true});
 
                         // update
-                        return ordersRef.document(orderForProcessing.id).set(orderForProcessing);
+                        let orderUpdate = ordersRef.document(orderForProcessing.id).set(orderForProcessing);
+
+                        return Promise.all([stateOrderUpate, stateTapUpdate, orderUpdate])
+                            .then(() => console.log('Updated state order, tap, and order. Exiting now!'));
                     }
                 })
                 .catch(err => {
                     console.log('Error finding orders', err);
                 });
+        } else {
+            return false;
         }
     });

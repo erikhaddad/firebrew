@@ -41,7 +41,8 @@ exports.orderChange = functions.firestore
                 .doc('mug')
                 .set({alpha: 0, beta: 0, gamma: 0});
 
-            return;
+            return Promise.all([tapUpdate, mugUpdate])
+                            .then(() => console.log('Updated tap and mug. Exiting now!'));
         }
 
         // Avoid infinite loop
@@ -51,7 +52,7 @@ exports.orderChange = functions.firestore
 
             console.log('Nothing has changed');
 
-            return;
+            return false;
         }
 
         if (data.status === OrderStatus.PROCESSING) {
@@ -68,7 +69,11 @@ exports.orderChange = functions.firestore
                 let mugUpdate = db.collection('states')
                     .doc('mug')
                     .set({alpha: 0, beta: 0, gamma: 0});
-                return simulateFill(event.data.ref);
+
+                let fillSimulation = simulateFill(event.data.ref);
+
+                return Promise.all([tapUpdate, mugUpdate, fillSimulation])
+                                .then(() => console.log('Updated tap, mug, and fill. Exiting now!'));
 
             } else if (data.progress === 100) {
                 // Simulation of fill has finished
@@ -76,7 +81,7 @@ exports.orderChange = functions.firestore
                 data.status = OrderStatus.COMPLETED;
 
                 // Reset the current order
-                let stateOrder = event.data.ref.set({
+                let stateOrderUpdate = event.data.ref.set({
                     id: '',
                     patronId: '',
                     name: '',
@@ -92,12 +97,15 @@ exports.orderChange = functions.firestore
                 console.log('Setting status on original order');
 
                 // Update
-                orderRef.set(data);
+                let orderUpdate = orderRef.set(data);
+
+                return Promise.all([stateOrderUpdate, orderUpdate])
+                                .then(() => console.log('Updated state and order. Exiting now!'));
             }
         }
     });
 
-function simulateFill (orderRef){
+function simulateFill (orderRef) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             orderRef

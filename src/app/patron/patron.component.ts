@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 import {DataService} from '../common/data.service';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
-import {IOrder, IPatron, Order, OrderStatus} from '../common/data-model';
+import {IMugState, IOrder, IPatron, ITapState, Order, OrderStatus} from '../common/data-model';
 import {Observable} from 'rxjs/Observable';
 
 @Component({
@@ -22,7 +22,25 @@ export class PatronComponent implements OnInit {
     isClicked: boolean;
 
     ordersCollection: AngularFirestoreCollection<IOrder>;
-    orders: Observable<IOrder[]>;
+    orders$: Observable<IOrder[]>;
+
+    patronOrdersCollection: AngularFirestoreCollection<IOrder>;
+    patronOrders$: Observable<IOrder[]>;
+    patronCurrentOrder: IOrder;
+
+    stateOfOrder$: AngularFirestoreDocument<IOrder>;
+    currentOrder: IOrder;
+
+    stateOfTap$: AngularFirestoreDocument<ITapState>;
+    tapState: ITapState;
+
+    stateOfMug$: AngularFirestoreDocument<IMugState>;
+    mugState: IMugState;
+
+    completedOrderIds: string[];
+    queuedOrderIds: string[];
+    patronCompletedOrderIds: string[];
+    patronQueuedOrderIds: string[];
 
     beerCost = 6;
     x0 = 0;
@@ -40,6 +58,43 @@ export class PatronComponent implements OnInit {
                 private route: ActivatedRoute) {
         this.isLoaded = false;
         this.isClicked = false;
+
+        this.completedOrderIds = [];
+        this.currentOrder = null;
+        this.queuedOrderIds = [];
+
+        this.patronCompletedOrderIds = [];
+        this.patronCurrentOrder = null;
+        this.patronQueuedOrderIds = [];
+
+        this.ordersCollection = dataService.orders;
+        this.orders$ = this.ordersCollection.valueChanges();
+
+        this.orders$
+            .subscribe((orders: IOrder[]) => {
+                orders.map((order: IOrder, index: number) => {
+                    if (order.status === OrderStatus.ORDERED) {
+                        this.queuedOrderIds.push(order.id);
+                    } else if (order.status === OrderStatus.COMPLETED) {
+                        this.completedOrderIds.push(order.id);
+                    }
+                });
+            });
+
+        this.stateOfOrder$ = this.dataService.stateOfOrder;
+        this.stateOfOrder$.valueChanges().subscribe(order => {
+            this.currentOrder = order;
+        });
+
+        this.stateOfTap$ = this.dataService.stateOfTap;
+        this.stateOfTap$.valueChanges().subscribe(tap => {
+            this.tapState = tap;
+        });
+
+        this.stateOfMug$ = this.dataService.stateOfMug;
+        this.stateOfMug$.valueChanges().subscribe(mug => {
+            this.mugState = mug;
+        });
     }
 
     ngOnInit() {
@@ -51,8 +106,19 @@ export class PatronComponent implements OnInit {
                 if (patron) {
                     this.patron = patron;
 
-                    this.ordersCollection = this.dataService.getOrdersByPatron(this.patronId);
-                    this.orders = this.ordersCollection.valueChanges();
+                    this.patronOrdersCollection = this.dataService.getOrdersByPatron(this.patronId);
+                    this.patronOrders$ = this.ordersCollection.valueChanges();
+
+                    this.patronOrders$
+                        .subscribe((orders: IOrder[]) => {
+                            orders.map((order: IOrder, index: number) => {
+                                if (order.status === OrderStatus.ORDERED) {
+                                    this.patronQueuedOrderIds.push(order.id);
+                                } else if (order.status === OrderStatus.COMPLETED) {
+                                    this.patronCompletedOrderIds.push(order.id);
+                                }
+                            });
+                        });
                 } else {
                     this.router.navigate(['/']);
                 }

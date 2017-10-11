@@ -4467,11 +4467,13 @@
         </div>
       </div>
     </div>
+
     <div id="bar-wood-container">
       <div id="bar-wood-first"></div>
       <div class="patron-section"
            fxLayout="column" fxLayoutAlign="center center">
         <div *ngIf="currentOrder && currentOrder.patronId" fxLayout="row" fxLayoutAlign="center center">
+          <h2 class="now-serving">Now Serving:</h2>
           <img class="patron-avatar" [src]="currentOrder.avatar" alt="Logged in patron avatar" />
           <h1 class="patron-name">{{ currentOrder.name }}</h1>
         </div>
