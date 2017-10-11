@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../auth/auth.service';
-import {IPatron, Patron, Order, IOrder, OrderStatus} from './data-model';
+import {IPatron, Patron, Order, IOrder, OrderStatus, IMugState, ITapState} from './data-model';
 import * as firebase from 'firebase';
 
 @Injectable()
 export class DataService {
     private ordersPath: string;
     private patronsPath: string;
+    private statesTapPath: string;
+    private statesMugPath: string;
+    private statesOrderPath: string;
 
     constructor(private afs: AngularFirestore, private auth: AuthService) {
         this.ordersPath = 'orders';
         this.patronsPath = 'patrons';
+        this.statesTapPath = 'states/tap';
+        this.statesMugPath = 'states/tap';
+        this.statesOrderPath = 'states/order';
     }
 
     /** ORDERS **/
@@ -23,7 +29,7 @@ export class DataService {
         order.status = OrderStatus.ORDERED;
         order.progress = 0;
         order.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-        // order.createdAt = '' + Date();
+
         return this.afs.doc(`${this.ordersPath}/${order.id}`).set({...order});
     }
     getOrder(id: string): AngularFirestoreDocument<IOrder> {
@@ -51,5 +57,19 @@ export class DataService {
     }
     updatePatron(patron: IPatron): Promise<any> {
         return this.afs.doc(`${this.patronsPath}/${patron.id}`).update(patron);
+    }
+
+    /** STATES **/
+    get stateOfMug(): AngularFirestoreDocument<IMugState> {
+        return this.afs.doc(this.statesMugPath);
+    }
+    updateStateOfMug(mugState: IMugState): Promise<any> {
+        return this.afs.doc(this.statesMugPath).update(mugState);
+    }
+    get stateOfTap(): AngularFirestoreDocument<ITapState> {
+        return this.afs.doc(this.statesTapPath);
+    }
+    get stateOfOrder(): AngularFirestoreDocument<IOrder> {
+        return this.afs.doc(this.statesOrderPath);
     }
 }

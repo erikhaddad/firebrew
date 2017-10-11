@@ -408,6 +408,7 @@ body.loaded {
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
   }
+  /*
   &::after {
     display: block;
     height: 73px;
@@ -416,6 +417,7 @@ body.loaded {
     content: '';
     width: 100%;
   }
+  */
 }
 
 #beer-tap-container {
@@ -467,7 +469,8 @@ body.loaded {
   transition: transform .8s ease 0s;
   z-index: -1;
   -webkit-transform-origin: center bottom;
-  &.clicked {
+
+  &.pouring {
     -webkit-transform: rotateX(0) translate3d(0, 0, 0);
     -moz-transform: rotateX(-7deg) translate3d(0, -2px, 0);
     -ms-transform: rotateX(-7deg) translate3d(0, -2px, 0);
@@ -476,7 +479,7 @@ body.loaded {
   }
 }
 
-#beer-tap-top.clicked {
+#beer-tap-top.pouring {
   -webkit-transform: rotateX(0) translate3d(0, 0, 0);
   -moz-transform: rotateX(-7deg) translate3d(0, 0, 0);
   -ms-transform: rotateX(-7deg) translate3d(0, 0, 0);
@@ -507,7 +510,7 @@ body.loaded {
   transform-origin: top left;
   transition: left 0.4s ease 0s, top 0.3s ease 0.4s;
 
-  &.in-action {
+  &.processing {
     top: 337px;
   }
 
@@ -556,7 +559,7 @@ body.loaded {
   background-color: #FFCD44;
   opacity: .6;
   transform: translate3d(0, 0, 0);
-  transition: height 10s linear;
+  transition: height 5s linear;
 
   &.fill {
     height: 180px;
@@ -640,7 +643,13 @@ body.loaded {
 
 
 @media screen and (max-height: 720px) {
+
+  /*
   #bar-wood-container::after {
+    height: 48px;
+  }
+  */
+  #bar-wood-container .patron-section {
     height: 48px;
   }
   #beer-tap-container {
@@ -733,5 +742,26 @@ $example-photo: 'https://lh6.googleusercontent.com/-3vhVlg7Ydss/AAAAAAAAAAI/AAAA
             center;
     background-blend-mode: color, difference;
     filter: brightness(2);
+  }
+}
+
+
+.patron-section {
+  height: 73px;
+  background-color: #422522;
+  border-top: 4px solid #583121;
+
+  .patron-avatar {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .54);
+    margin-right: 12px;
+    box-sizing: border-box;
+  }
+  .patron-name {
+    color: rgba(255, 255, 255, .8);
+    font-size: 36px;
+    font-weight: 400;
   }
 }

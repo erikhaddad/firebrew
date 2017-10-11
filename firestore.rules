@@ -8,5 +8,9 @@ service cloud.firestore {
     match /patrons/{patronId} {
       allow read, write: if request.auth != null && request.auth.uid == patronId;
     }
+    match /states/{document=**} {
+      allow read;
+      allow write: if false;
+    }
   }
 }

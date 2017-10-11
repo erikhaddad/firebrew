@@ -10,9 +10,10 @@ export enum OrderStatus {
     QUOTED = 9,
 }
 
-export interface IBarState {
-    pouring: boolean;
-
+export interface ITapState {
+    isPouring: boolean;
+}
+export interface IMugState {
     alpha: number;
     beta: number;
     gamma: number;

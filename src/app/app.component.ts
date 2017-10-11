@@ -13,8 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    moduleId: module.id
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
 

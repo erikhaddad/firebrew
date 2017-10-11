@@ -9,7 +9,20 @@
         },
         {
           "fieldPath": "progress",
-          "mode": "DESCENDING"
+          "mode": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionId": "patrons",
+      "fields": [
+        {
+          "fieldPath": "patronId",
+          "mode": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "mode": "ASCENDING"
         }
       ]
     }

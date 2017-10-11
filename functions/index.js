@@ -6,9 +6,11 @@ admin.initializeApp(functions.config().firebase);
 
 const orders = require('./orders');
 const patrons = require('./patrons');
+const states = require('./states');
 
 module.exports = {
     orderCreate: orders.orderCreate,
-    orderUpdate: orders.orderChange,
-    patronCreate: patrons.patronCreate
+    orderChange: orders.orderChange,
+    patronCreate: patrons.patronCreate,
+    stateOrderChange: states.orderChange
 };
