@@ -92,6 +92,11 @@ exports.orderChange = functions.firestore
                     progress: 0
                 });
 
+                // This gets handled by the reset but the redundancy ensures no spills
+                let tapUpdate = db.collection('states')
+                    .doc('tap')
+                    .set({isPouring: false});
+
                 // Get reference to original order
                 let orderRef = db.collection('orders').doc(data.id);
                 console.log('Setting status on original order');
@@ -99,7 +104,7 @@ exports.orderChange = functions.firestore
                 // Update
                 let orderUpdate = orderRef.set(data);
 
-                return Promise.all([stateOrderUpdate, orderUpdate])
+                return Promise.all([stateOrderUpdate, tapUpdate, orderUpdate])
                                 .then(() => console.log('Updated state and order. Exiting now!'));
             }
         }

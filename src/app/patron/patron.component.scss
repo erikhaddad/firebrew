@@ -24,6 +24,10 @@
   margin: 0 auto;
   transition: transform 0.3s ease 0s, opacity 0.8s ease 0s, visibility 0s ease 0.8s;
 
+  &.hidden-until-relevant {
+    display: none;
+  }
+
   #pour-button-shadow {
     transition: transform 0.3s ease 0s, opacity 0.8s ease 0s, visibility 0s ease 0.8s;
   }
@@ -40,6 +44,10 @@
 #queue-info {
   width: 200px;
   text-align: center;
+
+  &.hidden-until-relevant {
+    display: none;
+  }
 
   .queue-label span {
     color: rgba(255, 255, 255, .6);
@@ -85,6 +93,10 @@
   top: -20px;
   width: 248px;
 
+  &.hidden-until-relevant {
+    display: none;
+  }
+
   div {
     position: absolute;
   }
@@ -127,7 +139,12 @@
     width: 180px;
 
     height: 0;
-    transition: 5s height linear;
+
+    animation: fill-up;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-delay: 1000ms;
+    animation-duration: 5000ms;
 
     &:after {
       background-color: rgba(255, 255, 255, 0.25);
@@ -140,12 +157,7 @@
       -webkit-transform: rotate(15deg);
       width: 110px;
     }
-    
-    &.animate-fill {
-      height: 170px;
-      transition: 5s height linear;
-    }
-    
+
     .bubble {
       animation-name: bubble;
       animation-iteration-count: infinite;
@@ -194,12 +206,12 @@
     position: absolute;
 
     bottom: 10px;
-    transition: 5s bottom linear;
 
-    &.animate-fill {
-      bottom: 200px;
-      transition: 5s bottom linear;
-    }
+    animation: foam-up;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-delay: 1000ms;
+    animation-duration: 5000ms;
 
     .foam-1, .foam-2, .foam-3, .foam-4, .foam-5, .foam-6, .foam-7 {
       float: left;
@@ -293,5 +305,34 @@
   100% {
     background-color: rgba(255, 255, 255, 0);
     bottom: 160px;
+  }
+}
+
+
+@keyframes fill-up {
+  0% {
+    height: 0;
+  }
+
+  50% {
+    height: 85px;
+  }
+
+  100% {
+    height: 170px;
+  }
+}
+
+@keyframes foam-up {
+  0% {
+    bottom: 10px;
+  }
+
+  50% {
+    bottom: 95px;
+  }
+
+  100% {
+    bottom: 200px;
   }
 }
