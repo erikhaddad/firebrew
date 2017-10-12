@@ -40,7 +40,7 @@ export class BarComponent implements OnInit {
 
     constructor(public dataService: DataService) {
         this.isLoaded = false;
-        this.useSound = false;
+        this.useSound = true;
 
         this.pouringHeight = 0;
         this.mugLiquidHeight = 0;

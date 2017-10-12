@@ -16,7 +16,7 @@ export class DataService {
         this.ordersPath = 'orders';
         this.patronsPath = 'patrons';
         this.statesTapPath = 'states/tap';
-        this.statesMugPath = 'states/tap';
+        this.statesMugPath = 'states/mug';
         this.statesOrderPath = 'states/order';
     }
 
