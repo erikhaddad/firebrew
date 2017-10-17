@@ -3,7 +3,7 @@
 Update the CLI to latest version
 
 ```bash
-sudo npm install -g @angular/cli
+npm install -g @angular/cli
 ```
 
 Download the project source
